@@ -14,8 +14,11 @@ module mont_redc #(
     wire [WIDTH-1:0] t_low;
     assign t_low = t[WIDTH-1:0];
 
+    wire [2*WIDTH-1:0] m_full;
+    assign m_full = t_low * NPRIME;
+
     wire [WIDTH-1:0] m;
-    assign m = (t_low * NPRIME)[WIDTH-1:0];
+    assign m = m_full[WIDTH-1:0];
 
     wire [2*WIDTH-1:0] u_full;
     assign u_full = t + (m * MOD);

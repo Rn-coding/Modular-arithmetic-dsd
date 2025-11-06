@@ -41,7 +41,14 @@ L_000002126c8acfd0 .arith/sub 33, L_000002126c8acd50, L_000002126c9018c0;
 L_000002126c8ad110 .functor MUXZ 33, L_000002126c8acd50, L_000002126c8acfd0, L_000002126c8acdf0, C4<>;
 L_000002126c8ad2f0 .part L_000002126c8ad110, 0, 32;
 # The file index is used to find the file name in the following table.
-:file_names 3;
+:file_names 10;
     "N/A";
     "<interactive>";
-    ".\src\addition.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\addition.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\subtraction.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\exponentiation.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\mont-redc.v";
+    ".\tb\tb_multiplication.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\multiplication.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\to-mont-conv.v";
+    "C:\Users\rehan\Documents\VIT Acad\Fall-sem-25\BECE102-Digitial_Systems_Design\Project\Modular_arithmetic\src\from-mont-conv.v";
