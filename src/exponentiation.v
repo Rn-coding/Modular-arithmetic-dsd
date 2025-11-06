@@ -18,9 +18,8 @@ module mont_modexp #(
     localparam CONVERT = 2'd1; // convert base and init result (Mont form)
     localparam LOOP    = 2'd2; // exponent loop
     localparam FINISH  = 2'd3; // convert out and done
-    
-    
-    localparam [WIDTH-1:0] ONE = 1;
+
+    localparam [WIDTH-1:0] ONE = {{(WIDTH-1){1'b0}}, 1'b1};
 
     reg [1:0] state, nstate;
 
@@ -70,7 +69,7 @@ module mont_modexp #(
     );
 
     // control FSM and datapath: sequential logic
-    always @(posedge clk) begin
+    always @(posedge clk or posedge rst) begin
         if (rst) begin
             state    <= IDLE;
             base_reg <= {WIDTH{1'b0}};
@@ -78,38 +77,30 @@ module mont_modexp #(
             exp_reg  <= {WIDTH{1'b0}};
             done     <= 1'b0;
             result   <= {WIDTH{1'b0}};
-        end
-        else begin
+        end else begin
             state <= nstate;
             case (state)
                 IDLE: begin
                     done <= 1'b0;
                     if (start) begin
-                        // load exponent and move to convert
                         exp_reg <= exp;
                     end
                 end
 
                 CONVERT: begin
-                    // latch conversion results into registers
                     base_reg <= conv_base;
                     res_reg  <= conv_one;
-                    // exp_reg already loaded in IDLE on start
                 end
 
                 LOOP: begin
-                    // If LSB of exponent is 1 -> multiply result by base
-                    if (exp_reg[0]) begin
+                    if (exp_reg[0])
                         res_reg <= prod_candidate;
-                    end
-                    // square base each iteration
+
                     base_reg <= base_sq;
-                    // shift exponent right
-                    exp_reg <= exp_reg >> 1;
+                    exp_reg  <= exp_reg >> 1;
                 end
 
                 FINISH: begin
-                    // convert out: out_normal computed combinationally from res_reg
                     result <= out_normal;
                     done   <= 1'b1;
                 end
@@ -121,25 +112,10 @@ module mont_modexp #(
     always @(*) begin
         nstate = state;
         case (state)
-            IDLE: begin
-                if (start)
-                    nstate = CONVERT;
-            end
-            CONVERT: begin
-                // one cycle to latch conversions, then start looping
-                nstate = LOOP;
-            end
-            LOOP: begin
-                if (exp_reg == 0)
-                    nstate = FINISH;
-                else
-                    nstate = LOOP; // continue looping
-            end
-            FINISH: begin
-                // remain in FINISH until start goes low; then go back to IDLE when start is 0
-                if (!start)
-                    nstate = IDLE;
-            end
+            IDLE:    if (start) nstate = CONVERT;
+            CONVERT: nstate = LOOP;
+            LOOP:    if (exp_reg == 0) nstate = FINISH;
+            FINISH:  if (!start) nstate = IDLE;
         endcase
     end
 
