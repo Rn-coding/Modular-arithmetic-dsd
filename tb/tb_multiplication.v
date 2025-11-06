@@ -4,15 +4,17 @@ module tb_mont_redc;
     localparam integer MOD     = 998244353;
     localparam integer NPRIME  = 32'd998244351;
     localparam integer TESTS   = 20;
+    localparam integer R2MOD   = 32'd932051910;
 
     reg  [WIDTH-1:0] a, b;
     wire [WIDTH-1:0] result;
 
     // Instantiate DUT
-    mont_redc #(
+    mod_mul #(
         .WIDTH(WIDTH),
         .MOD(MOD),
-        .NPRIME(NPRIME)
+        .NPRIME(NPRIME),
+        .R2MOD(R2MOD)
     ) dut (
         .a(a),
         .b(b),
@@ -47,6 +49,8 @@ module tb_mont_redc;
 
     initial begin
         errors = 0;
+
+        $display("Starting multiplication tests.");
 
         // manual corner cases
         run_test(0, 0);

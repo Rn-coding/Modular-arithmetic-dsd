@@ -2,7 +2,7 @@ module mont_modexp #(
     parameter integer WIDTH   = 32,
     parameter integer MOD     = 998244353,
     parameter integer NPRIME  = 32'd998244351,
-    parameter integer R2MOD   = 32'd932051910,   // R^2 mod MOD (precomputed)
+    parameter integer R2MOD   = 32'd932051910   // R^2 mod MOD (precomputed)
 )(
     input  wire                  clk,
     input  wire                  rst,

@@ -67,6 +67,9 @@ module tb_mont_modexp;
         start = 0;
         base = 0;
         exp = 0;
+
+        $display("Starting exponentation tests.");
+
         #20; rst = 0;
 
         // Fixed tests
