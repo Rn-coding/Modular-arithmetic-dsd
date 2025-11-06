@@ -33,16 +33,16 @@ module tb_mont_redc;
             b = b_in;
             #10;
 
+            $display("Starting: a=%0d, b=%0d", a_in, b_in);
+
             // check normal computation
             ref_result = ( (a_in * b_in) % MOD );
 
-            if (result !== ref_result[WIDTH-1:0]) begin
-                $display("Error: a=%0d b=%0d | Expected=%0d Got=%0d",
-                          a_in, b_in, ref_result, result);
-                errors = errors + 1;
-            end
+            if (result === ref_result[WIDTH-1:0])
+                $display("PASS: Result=%0d, Expected=%0d", result, ref_result);
             else begin
-                $display("Done: a=%0d b=%0d -> %0d", a_in, b_in, result);
+                $display("ERROR: Got=%0d, Expected=%0d ", result, ref_result);
+                errors = errors + 1;
             end
         end
     endtask
@@ -66,9 +66,9 @@ module tb_mont_redc;
 
         // Summary
         if (errors == 0)
-            $display("All tests passed");
+            $display("\nAll tests passed");
         else
-            $display("%0d tests failed.", errors);
+            $display("\n%0d tests failed.", errors);
 
         $finish;
     end

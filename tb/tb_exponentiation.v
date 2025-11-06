@@ -87,9 +87,9 @@ module tb_mont_modexp;
 
         // Results summary
         if (errors == 0)
-            $display("All tests passed!");
+            $display("\nAll tests passed!");
         else
-            $display("%0d tests failed.", errors);
+            $display("\n%0d tests failed.", errors);
 
         $finish;
     end
@@ -101,7 +101,7 @@ module tb_mont_modexp;
             exp  = exp_in;
             ref  = modexp_ref(base_in, exp_in);
 
-            $display("\nStarting test: base=%0d, exp=%0d (expect %0d)", base_in, exp_in, ref);
+            $display("Starting: base=%0d, exp=%0d", base_in, exp_in);
             
             start = 1;
             @(posedge clk);
@@ -111,9 +111,9 @@ module tb_mont_modexp;
             @(posedge clk);
 
             if (result === ref)
-                $display("Done: base=%0d exp=%0d -> result=%0d", base_in, exp_in, result);
+                $display("PASS: Result=%0d, Expected=%0d", result, ref);
             else begin
-                $display("Error: base=%0d exp=%0d | Got %0d Expected %0d", base_in, exp_in, result, ref);
+                $display("ERROR: Got=%0d Expected=%0d", result, ref);
                 errors = errors + 1;
             end
         end
