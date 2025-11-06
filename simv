@@ -1,0 +1,47 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\Users\rehan\bin\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\Users\rehan\bin\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\Users\rehan\bin\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\Users\rehan\bin\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\Users\rehan\bin\iverilog\lib\ivl\va_math.vpi";
+S_000002126c8a6570 .scope module, "mod_add" "mod_add" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "a";
+    .port_info 1 /INPUT 32 "b";
+    .port_info 2 /OUTPUT 32 "result";
+P_000002126c8874c0 .param/l "MOD" 0 2 1, +C4<00111011100000000000000000000001>;
+P_000002126c8874f8 .param/l "WIDTH" 0 2 1, +C4<00000000000000000000000000100000>;
+v000002126c8ad9d0_0 .net *"_ivl_0", 32 0, L_000002126c8ad4d0;  1 drivers
+L_000002126c901878 .functor BUFT 1, C4<000111011100000000000000000000001>, C4<0>, C4<0>, C4<0>;
+v000002126c8ad390_0 .net/2u *"_ivl_10", 32 0, L_000002126c901878;  1 drivers
+v000002126c8ad750_0 .net *"_ivl_12", 0 0, L_000002126c8acdf0;  1 drivers
+L_000002126c9018c0 .functor BUFT 1, C4<000111011100000000000000000000001>, C4<0>, C4<0>, C4<0>;
+v000002126c8ace90_0 .net/2u *"_ivl_14", 32 0, L_000002126c9018c0;  1 drivers
+v000002126c8ad570_0 .net *"_ivl_16", 32 0, L_000002126c8acfd0;  1 drivers
+v000002126c8ad930_0 .net *"_ivl_18", 32 0, L_000002126c8ad110;  1 drivers
+L_000002126c9017e8 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v000002126c8acad0_0 .net *"_ivl_3", 0 0, L_000002126c9017e8;  1 drivers
+v000002126c8ad890_0 .net *"_ivl_4", 32 0, L_000002126c8accb0;  1 drivers
+L_000002126c901830 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v000002126c8ad070_0 .net *"_ivl_7", 0 0, L_000002126c901830;  1 drivers
+o000002126c8adc48 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000002126c8acf30_0 .net "a", 31 0, o000002126c8adc48;  0 drivers
+o000002126c8adc78 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000002126c8ad7f0_0 .net "b", 31 0, o000002126c8adc78;  0 drivers
+v000002126c8acb70_0 .net "result", 31 0, L_000002126c8ad2f0;  1 drivers
+v000002126c8acc10_0 .net "sum", 32 0, L_000002126c8acd50;  1 drivers
+L_000002126c8ad4d0 .concat [ 32 1 0 0], o000002126c8adc48, L_000002126c9017e8;
+L_000002126c8accb0 .concat [ 32 1 0 0], o000002126c8adc78, L_000002126c901830;
+L_000002126c8acd50 .arith/sum 33, L_000002126c8ad4d0, L_000002126c8accb0;
+L_000002126c8acdf0 .cmp/ge 33, L_000002126c8acd50, L_000002126c901878;
+L_000002126c8acfd0 .arith/sub 33, L_000002126c8acd50, L_000002126c9018c0;
+L_000002126c8ad110 .functor MUXZ 33, L_000002126c8acd50, L_000002126c8acfd0, L_000002126c8acdf0, C4<>;
+L_000002126c8ad2f0 .part L_000002126c8ad110, 0, 32;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    ".\src\addition.v";
